@@ -1,0 +1,1 @@
+//Defines the app's routing structure using GoRouter.
