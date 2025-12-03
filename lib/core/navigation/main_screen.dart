@@ -75,7 +75,7 @@ class _MainScreenState extends State<MainScreen> {
 
       // Bottom Navigation Bar
       bottomNavigationBar: Container(
-        height: 112,
+        // height: 112,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
