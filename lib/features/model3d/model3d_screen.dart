@@ -145,7 +145,7 @@ class _Model3DScreenState extends State<Model3DScreen> {
                     border: Border.all(color: kColorCream),
                   ),
                   child: const Text(
-                    "Drag to rotate  •  Pinch to rotate",
+                    "Drag to rotate  •  Pinch to zoom",
                     style: TextStyle(color: kColorCream, fontSize: 14),
                   ),
                 ),

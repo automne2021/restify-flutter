@@ -113,7 +113,7 @@ class _MainScreenState extends State<MainScreen> {
               _buildNavItem(AppAssets.iconHome, 'Home'),
               _buildNavItem(AppAssets.iconNews, 'News'),
               _buildNavItem(AppAssets.iconVideo, 'Video'),
-              _buildNavItem(AppAssets.icon3d, '3D'),
+              _buildNavItem(AppAssets.icon3d, '3D/AR'),
               _buildNavItem(AppAssets.iconGame, 'Game'),
             ],
           ),
