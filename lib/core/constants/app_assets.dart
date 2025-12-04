@@ -15,6 +15,8 @@ class AppAssets {
   static const String iconCircleUp = 'assets/icons/circle_up.svg';
   static const String iconCircleDown = 'assets/icons/circle_down.svg';
   static const String iconInfo = 'assets/icons/info.svg';
+  static const String iconPeace = 'assets/icons/inner_peace.svg';
+  static const String iconVn = 'assets/icons/vn_flag.svg';
   static const String iconX = 'assets/icons/x.svg';
   static const String iconO = 'assets/icons/o.svg';
   static const String iconChevronDown = 'assets/icons/chevron_down.svg';

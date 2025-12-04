@@ -37,6 +37,7 @@ dependencies:
   flutter_svg: ^2.2.3
   flutter_markdown: ^0.7.7+1
   webview_flutter: ^4.13.0
+  model_viewer_plus: ^1.9.3
 
 dev_dependencies:
   flutter_test:
@@ -62,16 +63,18 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     # Fonts
-     - assets/fonts/
-     #Icons
-     - assets/icons/
-     # Images
-     - assets/images/common/
-     - assets/images/splash/
-     - assets/images/welcome/
-     - assets/images/home/
-     - assets/images/game/
+    # Fonts
+    - assets/fonts/
+    #Icons
+    - assets/icons/
+    # Images
+    - assets/images/common/
+    - assets/images/splash/
+    - assets/images/welcome/
+    - assets/images/home/
+    - assets/images/game/
+    # 3D Models
+    - assets/models/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -85,14 +88,14 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-   - family: RobotoCondensed
-     fonts:
-       - asset: assets/fonts/roboto_condensed_regular.ttf
-         weight: 400
-       - asset: assets/fonts/roboto_condensed_medium.ttf
-         weight: 500
-       - asset: assets/fonts/roboto_condensed_bold.ttf
-         weight: 700
+    - family: RobotoCondensed
+      fonts:
+        - asset: assets/fonts/roboto_condensed_regular.ttf
+          weight: 400
+        - asset: assets/fonts/roboto_condensed_medium.ttf
+          weight: 500
+        - asset: assets/fonts/roboto_condensed_bold.ttf
+          weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

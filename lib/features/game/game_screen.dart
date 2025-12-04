@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:restify_flutter/core/constants/app_assets.dart';
 import 'package:restify_flutter/core/theme/app_colors.dart';
 import 'package:restify_flutter/core/theme/app_typography.dart';
 import 'package:restify_flutter/features/game/game_logic.dart';
@@ -78,7 +79,7 @@ class _GameScreenState extends State<GameScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const SizedBox(height: 40),
+        const SizedBox(height: 45),
         Text(
           "TIC TAC TOE",
           style: TextStyle(
@@ -102,7 +103,7 @@ class _GameScreenState extends State<GameScreen> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
-                'assets/images/game/game_board.png',
+                AppAssets.gameBoard,
                 fit: BoxFit.cover,
               ),
             ),
@@ -125,13 +126,13 @@ class _GameScreenState extends State<GameScreen> {
       children: [
         // Top Bar with Back Button
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 28),
           child: Row(
             children: [
               GestureDetector(
                 onTap: _quitGame,
                 child: SvgPicture.asset(
-                  'assets/icons/back.svg',
+                  AppAssets.iconBack,
                   width: 40,
                   height: 40,
                 ),
@@ -140,7 +141,7 @@ class _GameScreenState extends State<GameScreen> {
           ),
         ),
 
-        const SizedBox(height: 10),
+        const SizedBox(height: 32),
 
         // Title
         Text(
@@ -154,7 +155,7 @@ class _GameScreenState extends State<GameScreen> {
           ),
         ),
 
-        const SizedBox(height: 20),
+        const SizedBox(height: 37),
 
         // Status Text
         Text(
@@ -265,7 +266,7 @@ class _GameScreenState extends State<GameScreen> {
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              color: kColorBlack.withOpacity(0.2),
+              color: kColorBlack.withValues(alpha: 0.2),
               blurRadius: 4,
               offset: const Offset(0, 4),
             ),
@@ -275,7 +276,7 @@ class _GameScreenState extends State<GameScreen> {
           child: Text(
             label,
             style: kAppTypography.bodyLarge?.copyWith(
-              color: Colors.white,
+              color: kColorBlack,
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
