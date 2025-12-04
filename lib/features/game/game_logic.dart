@@ -23,10 +23,8 @@ class GameLogic {
   bool playerMove(int index) {
     if (board[index] != '' || winner != '') return false;
 
-    // RULE: If Opponent (AI/O) has 3 pieces, remove their first one.
-    // "Move 5 (Human) -> Lose first move (AI)"
-    if (oMoves.length >= 3) {
-      int removedIndex = oMoves.removeAt(0);
+    if (xMoves.length >= 3) {
+      int removedIndex = xMoves.removeAt(0);
       board[removedIndex] = '';
     }
 
@@ -34,9 +32,8 @@ class GameLogic {
     board[index] = 'X';
 
     isXTurn = false;
-    statusMessage = 'AI is thinking...';
+    statusMessage = 'Ai turns!';
 
-    // Check winner immediately after placing
     _checkWinner();
     return true;
   }
@@ -47,18 +44,14 @@ class GameLogic {
     int moveIndex = -1;
 
     if (isHardMode) {
-      // Hard Mode: Minimax logic
       moveIndex = _getBestMove();
     } else {
-      // Easy Mode: Random
       moveIndex = _getRandomMove();
     }
 
     if (moveIndex != -1) {
-      // RULE: If Opponent (Human/X) has 3 pieces, remove their first one.
-      // "Move 4 (AI) -> Lose first move (Human)"
-      if (xMoves.length >= 3) {
-        int removedIndex = xMoves.removeAt(0);
+      if (oMoves.length >= 3) {
+        int removedIndex = oMoves.removeAt(0);
         board[removedIndex] = '';
       }
 
@@ -80,27 +73,25 @@ class GameLogic {
 
     for (int i = 0; i < 9; i++) {
       if (board[i] == '') {
-        // --- SIMULATE O'S MOVE ---
-        // Check if we need to remove X's (Human's) piece
         int? removedIndex;
-        if (xMoves.length >= 3) {
-          removedIndex = xMoves[0]; // Store to backtrack later
-          board[removedIndex] = ''; // Remove from board simulation
+        if (oMoves.length >= 3) {
+          removedIndex = oMoves[0];
+          board[removedIndex] = '';
         }
 
-        // Place new piece
         board[i] = 'O';
-        List<int> nextOMoves = List.from(oMoves)..add(i);
-        List<int> nextXMoves = List.from(xMoves);
-        if (removedIndex != null) nextXMoves.removeAt(0); // Update X list simulation
+
+        List<int> nextOMoves = List.from(oMoves);
+        if (removedIndex != null) nextOMoves.removeAt(0);
+        nextOMoves.add(i);
 
         // Call Minimax
-        int score = _minimax(board, 0, false, -1000, 1000, nextXMoves, nextOMoves);
+        int score = _minimax(board, 0, false, -1000, 1000, xMoves, nextOMoves);
 
-        // BACKTRACK
+        // Backtrack
         board[i] = '';
         if (removedIndex != null) {
-          board[removedIndex] = 'X';
+          board[removedIndex] = 'O';
         }
 
         if (score > bestScore) {
@@ -125,29 +116,29 @@ class GameLogic {
     if (result == 'O') return 10 - depth;
     if (result == 'X') return depth - 10;
 
-    // 6 moves ahead is deep enough for this game variant to be "Hard".
     if (depth >= 6) return 0;
 
-    if (isMaximizing) {
+    if (isMaximizing) { // Lượt AI (O)
       int bestScore = -1000;
       for (int i = 0; i < 9; i++) {
         if (board[i] == '') {
+          // AI Logic
           int? removedIndex;
-          if (currentXMoves.length >= 3) {
-            removedIndex = currentXMoves[0];
+          if (currentOMoves.length >= 3) {
+            removedIndex = currentOMoves[0];
             board[removedIndex] = '';
           }
 
           board[i] = 'O';
-          List<int> nextOMoves = List.from(currentOMoves)..add(i);
-          List<int> nextXMoves = List.from(currentXMoves);
-          if (removedIndex != null) nextXMoves.removeAt(0);
+          List<int> nextOMoves = List.from(currentOMoves);
+          if (removedIndex != null) nextOMoves.removeAt(0);
+          nextOMoves.add(i);
 
-          int score = _minimax(board, depth + 1, false, alpha, beta, nextXMoves, nextOMoves);
+          int score = _minimax(board, depth + 1, false, alpha, beta, currentXMoves, nextOMoves);
 
           // Backtrack
           board[i] = '';
-          if (removedIndex != null) board[removedIndex] = 'X';
+          if (removedIndex != null) board[removedIndex] = 'O';
 
           bestScore = max(score, bestScore);
           alpha = max(alpha, bestScore);
@@ -159,22 +150,23 @@ class GameLogic {
       int bestScore = 1000;
       for (int i = 0; i < 9; i++) {
         if (board[i] == '') {
+          // Player Logic
           int? removedIndex;
-          if (currentOMoves.length >= 3) {
-            removedIndex = currentOMoves[0];
+          if (currentXMoves.length >= 3) {
+            removedIndex = currentXMoves[0];
             board[removedIndex] = '';
           }
 
           board[i] = 'X';
-          List<int> nextXMoves = List.from(currentXMoves)..add(i);
-          List<int> nextOMoves = List.from(currentOMoves);
-          if (removedIndex != null) nextOMoves.removeAt(0);
+          List<int> nextXMoves = List.from(currentXMoves);
+          if (removedIndex != null) nextXMoves.removeAt(0);
+          nextXMoves.add(i);
 
-          int score = _minimax(board, depth + 1, true, alpha, beta, nextXMoves, nextOMoves);
+          int score = _minimax(board, depth + 1, true, alpha, beta, nextXMoves, currentOMoves);
 
           // Backtrack
           board[i] = '';
-          if (removedIndex != null) board[removedIndex] = 'O';
+          if (removedIndex != null) board[removedIndex] = 'X';
 
           bestScore = min(score, bestScore);
           beta = min(beta, bestScore);
